@@ -13,9 +13,15 @@ app.use(express.static(path.join(__dirname, 'public'))); // 静的ファイル�
 app.set('view engine', 'ejs'); // テンプレートエンジンにEJSを設定
 app.set('views', path.join(__dirname, 'views')); // ビューのディレクトリを設定
 
+// ルーティング登録 (/todos パス配下に集約)
+// products 以下の ルーターをインポート
+import todoRoutes from './routes/todoRoutes';
+app.use('/todos', todoRoutes);
 
-app.get('/', (req: Request, res: Response): void => {
-  res.send('Hello World!');
+
+// ルートパスへのアクセスを /todos にリダイレクト
+app.get('/', (req: Request, res: Response) => {
+    res.redirect('/todos');
 });
 
 
